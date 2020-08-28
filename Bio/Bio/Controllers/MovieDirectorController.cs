@@ -24,13 +24,11 @@ namespace Bio.Controllers
         public IEnumerable<MovieDirector> GetName()
         {
             List<MovieDirector> movieDirectorList = dataContext.MovieDirectors.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
+            List<Movie> movieList = dataContext.Movies.ToList();
+            List<Director> directorList = dataContext.Directors.ToList();
+
             return movieDirectorList;
-        }
-        // GET: api/<MovieDirectorController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/<MovieDirectorController>/5

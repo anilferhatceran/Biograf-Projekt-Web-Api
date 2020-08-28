@@ -11,55 +11,48 @@ namespace Bio.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieScreeningController : ControllerBase
+    public class DirectorController : ControllerBase
     {
         private readonly DatabaseContext dataContext;
 
-        public MovieScreeningController(DatabaseContext dataContextObj)
+        public DirectorController(DatabaseContext dataContextObj)
         {
-            dataContext = dataContextObj;//
+            dataContext = dataContextObj;
         }
-        // GET: api/<MovieController>
+        // GET: api/<DirectorController>
         [HttpGet]
-        public IEnumerable<MovieScreening> GetMovies()
+        public IEnumerable<Director> GetDirectors()
         {
-            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
-            List<Movie> movieList = dataContext.Movies.ToList();
-            List<Hall> hallList = dataContext.Halls.ToList();
-
-            List<Language> languageList = dataContext.Languages.ToList();
-
-
-
-            return movieScreeningList;
+            List<Director> directorList = dataContext.Directors.ToList();
+            return directorList;
         }
 
-        // GET api/<MovieScreeningController>/5
+        // GET api/<DirectorController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<MovieScreeningController>
+        // POST api/<DirectorController>
         [HttpPost]
-        public async Task<ActionResult<MovieScreening>> PostMovie(MovieScreening movieScreening)
+        public async Task<ActionResult<Director>> PostCompany(Director director)
         {
-            dataContext.MovieScreenings.Add(movieScreening);
+            dataContext.Directors.Add(director);
             await dataContext.SaveChangesAsync();
 
             ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
-            return movieScreening;
+            return director;
         }
 
-        // PUT api/<MovieScreeningController>/5
+        // PUT api/<DirectorController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<MovieScreeningController>/5
+        // DELETE api/<DirectorController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

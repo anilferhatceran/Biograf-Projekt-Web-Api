@@ -11,55 +11,48 @@ namespace Bio.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieScreeningController : ControllerBase
+    public class HallController : ControllerBase
     {
         private readonly DatabaseContext dataContext;
 
-        public MovieScreeningController(DatabaseContext dataContextObj)
+        public HallController(DatabaseContext dataContextObj)
         {
-            dataContext = dataContextObj;//
+            dataContext = dataContextObj;
         }
-        // GET: api/<MovieController>
+        // GET: api/<HallController>
         [HttpGet]
-        public IEnumerable<MovieScreening> GetMovies()
+        public IEnumerable<Hall> GetHalls()
         {
-            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
-            List<Movie> movieList = dataContext.Movies.ToList();
             List<Hall> hallList = dataContext.Halls.ToList();
-
-            List<Language> languageList = dataContext.Languages.ToList();
-
-
-
-            return movieScreeningList;
+            return hallList;
         }
 
-        // GET api/<MovieScreeningController>/5
+        // GET api/<HallController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<MovieScreeningController>
+        // POST api/<HallController>
         [HttpPost]
-        public async Task<ActionResult<MovieScreening>> PostMovie(MovieScreening movieScreening)
+        public async Task<ActionResult<Hall>> PostCompany(Hall hall)
         {
-            dataContext.MovieScreenings.Add(movieScreening);
+            dataContext.Halls.Add(hall);
             await dataContext.SaveChangesAsync();
 
             ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
-            return movieScreening;
+            return hall;
         }
 
-        // PUT api/<MovieScreeningController>/5
+        // PUT api/<HallController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<MovieScreeningController>/5
+        // DELETE api/<HallController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
