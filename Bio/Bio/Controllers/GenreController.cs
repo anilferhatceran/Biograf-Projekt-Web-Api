@@ -2,53 +2,58 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Bio.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Bio.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieGenreController : ControllerBase
+    public class GenreController : ControllerBase
     {
         private readonly DatabaseContext dataContext;
 
-        public MovieGenreController(DatabaseContext dataContextObj)
+        public GenreController(DatabaseContext dataContextObj)
         {
-            dataContext = dataContextObj;//
+            dataContext = dataContextObj;
         }
-        // GET: api/<MovieController>
+        // GET: api/<GenreController>
         [HttpGet]
-        public IEnumerable<MovieGenre> GetName()
+        public IEnumerable<Genre> GetGenres()
         {
-            List<MovieGenre> movieGenreList = dataContext.MovieGenres.ToList();
-            List<Movie> movieList = dataContext.Movies.ToList();
             List<Genre> genreList = dataContext.Genres.ToList();
-            return movieGenreList;
+            return genreList;
         }
 
-        // GET api/<MovieGenreController>/5
+        // GET api/<GenreController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<MovieGenreController>
+        // POST api/<GenreController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Genre>> PostCompany(Genre genre)
         {
+            dataContext.Genres.Add(genre);
+            await dataContext.SaveChangesAsync();
+
+            ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
+            return genre;
         }
 
-        // PUT api/<MovieGenreController>/5
+        // PUT api/<GenreController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<MovieGenreController>/5
+        // DELETE api/<GenreController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

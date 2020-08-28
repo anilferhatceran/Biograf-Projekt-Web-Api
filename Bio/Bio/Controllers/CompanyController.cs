@@ -11,55 +11,48 @@ namespace Bio.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieScreeningController : ControllerBase
+    public class CompanyController : ControllerBase
     {
         private readonly DatabaseContext dataContext;
 
-        public MovieScreeningController(DatabaseContext dataContextObj)
+        public CompanyController(DatabaseContext dataContextObj)
         {
-            dataContext = dataContextObj;//
+            dataContext = dataContextObj;
         }
-        // GET: api/<MovieController>
+        // GET: api/<CompanyController>
         [HttpGet]
-        public IEnumerable<MovieScreening> GetMovies()
+        public IEnumerable<Company> GetCompanies()
         {
-            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
-            List<Movie> movieList = dataContext.Movies.ToList();
-            List<Hall> hallList = dataContext.Halls.ToList();
-
-            List<Language> languageList = dataContext.Languages.ToList();
-
-
-
-            return movieScreeningList;
+            List<Company> companyList = dataContext.Companies.ToList();
+            return companyList;
         }
 
-        // GET api/<MovieScreeningController>/5
+        // GET api/<CompanyController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<MovieScreeningController>
+        // POST api/<CompanyController>
         [HttpPost]
-        public async Task<ActionResult<MovieScreening>> PostMovie(MovieScreening movieScreening)
+        public async Task<ActionResult<Company>> PostCompany(Company company)
         {
-            dataContext.MovieScreenings.Add(movieScreening);
+            dataContext.Companies.Add(company);
             await dataContext.SaveChangesAsync();
 
             ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
-            return movieScreening;
+            return company;
         }
 
-        // PUT api/<MovieScreeningController>/5
+        // PUT api/<CompanyController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<MovieScreeningController>/5
+        // DELETE api/<CompanyController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
