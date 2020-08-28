@@ -8,7 +8,7 @@ namespace Bio.Models
     public class MovieGenre
     {
         public int movieGenreID { get; set; }
-        public Movie movie { get; }
-        public Genre genre { get; }
+        public Movie movie { get; set; }
+        public Genre genre { get; set; }
     }
 }
