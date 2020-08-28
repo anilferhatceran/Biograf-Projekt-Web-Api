@@ -7,6 +7,8 @@ using Bio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -77,19 +79,42 @@ namespace Bio.Controllers
 
         //GET api/<MovieController>/5
         [HttpGet("{id}")] 
-        public IEnumerable<Movie> Get(long id)
+        public IEnumerable<Movie> GetMovieByID(long id)
         {
             List<Movie> movieList = dataContext.Movies.ToList();
             var test = movieList.Where(movie => movie.movieID == id);
             return test;
         }
         [HttpGet("title")]
-        public IEnumerable<Movie> Get(string title)
+
+        public IEnumerable<Movie> GetMovieByTitle(string title)
         {
             List<Movie> movieList = dataContext.Movies.ToList();
-            var test = movieList.Where(movie => movie.movieTitle == title.ToLower());
+
+            var test = movieList.Where(movie => movie.movieTitle == title);
             return test;
         }
+        [HttpGet("releaseDate")]
+
+        public IEnumerable<Movie> GetMovieByReleaseDate(string releaseDate)
+        {
+            List<Movie> movieList = dataContext.Movies.ToList();
+
+            var test = movieList.Where(movie => movie.releaseDate == Convert.ToDateTime(releaseDate));
+            return test;
+        }
+
+        //public Task<ActionResult<Movie>> GetSamurai(string title)
+        //{
+        //    var movie = dataContext.Movies.Where(m => m.movieTitle == title);
+
+        //    if (movie == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return movie;
+        //}
 
         // POST api/<MovieController>
         [HttpPost]
