@@ -30,11 +30,24 @@ namespace Bio.Controllers
 
         // GET api/<GenreController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Genre> GetGenreByID(long id)
         {
-            return "value";
+            List<Genre> genreList = dataContext.Genres.ToList();
+
+            var genreByID = genreList.Where(genre => genre.genreID == id);
+
+            return genreByID;
         }
 
+        [HttpGet("genrename")]
+        public IEnumerable<Genre> GetGenreByName(string genrename)
+        {
+            List<Genre> genreList = dataContext.Genres.ToList();
+
+            var genreByName = genreList.Where(genre => genre.genreName == genrename);
+
+            return genreByName;
+        }
         // POST api/<GenreController>
         [HttpPost]
         public async Task<ActionResult<Genre>> PostCompany(Genre genre)

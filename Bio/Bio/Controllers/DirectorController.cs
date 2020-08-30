@@ -29,11 +29,23 @@ namespace Bio.Controllers
 
         // GET api/<DirectorController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Director> GetDirectorByID(long id)
         {
-            return "value";
-        }
+            List<Director> directorList = dataContext.Directors.ToList();
 
+            var directorsByID = directorList.Where(director => director.directorID == id);
+
+            return directorsByID;
+        }
+        [HttpGet("directorname")]
+        public IEnumerable<Director> GetDirectorByName(string directorName)
+        {
+            List<Director> directorList = dataContext.Directors.ToList();
+
+            var directorsByName = directorList.Where(director => director.directorName == directorName);
+
+            return directorsByName;
+        }
         // POST api/<DirectorController>
         [HttpPost]
         public async Task<ActionResult<Director>> PostCompany(Director director)

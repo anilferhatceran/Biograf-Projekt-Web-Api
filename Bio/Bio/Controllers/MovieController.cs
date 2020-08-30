@@ -103,6 +103,16 @@ namespace Bio.Controllers
             var test = movieList.Where(movie => movie.releaseDate == Convert.ToDateTime(releaseDate));
             return test;
         }
+        [HttpGet("languageName")]
+
+        public IEnumerable<Movie> GetMovieByLanguageName(string languageName)
+        {
+            List<Movie> movieList = dataContext.Movies.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
+
+            var test = movieList.Where(movie => movie.language.languageName == languageName);
+            return test;
+        }
 
         //public Task<ActionResult<Movie>> GetSamurai(string title)
         //{

@@ -29,11 +29,32 @@ namespace Bio.Controllers
 
         // GET api/<HallController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Hall> GetHallByID(long id)
         {
-            return "value";
-        }
+            List<Hall> hallList = dataContext.Halls.ToList();
 
+            var hallsByID = hallList.Where(hall => hall.hallID == id);
+
+            return hallsByID;
+        }
+        [HttpGet("numberofseats")]
+        public IEnumerable<Hall> GetHallByNumOfSeats(int numberOfSeats)
+        {
+            List<Hall> hallList = dataContext.Halls.ToList();
+
+            var hallByNumOfSeat = hallList.Where(hallSeats => hallSeats.hallNumOfSeats >= numberOfSeats);
+
+            return hallByNumOfSeat;
+        }
+        [HttpGet("numberofrows")]
+        public IEnumerable<Hall> GetHallByNumOfRows(int numberOfRows)
+        {
+            List<Hall> hallList = dataContext.Halls.ToList();
+
+            var hallByNumOfRows = hallList.Where(hallRows => hallRows.numOfRows >= numberOfRows);
+
+            return hallByNumOfRows;
+        }
         // POST api/<HallController>
         [HttpPost]
         public async Task<ActionResult<Hall>> PostCompany(Hall hall)

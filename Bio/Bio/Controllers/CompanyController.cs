@@ -26,12 +26,24 @@ namespace Bio.Controllers
             List<Company> companyList = dataContext.Companies.ToList();
             return companyList;
         }
+        [HttpGet("companyName")]
+
+        public IEnumerable<Company> GetCompanyByName(string companyName)
+        {
+            List<Company> companyList = dataContext.Companies.ToList();
+
+            var companiesByName = companyList.Where(company => company.companyName == companyName);
+            return companiesByName;
+        }
 
         // GET api/<CompanyController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Company> GetCompanyByID(long id)
         {
-            return "value";
+            List<Company> companyList = dataContext.Companies.ToList();
+
+            var companiesByID = companyList.Where(company => company.companyID == id);
+            return companiesByID;
         }
 
         // POST api/<CompanyController>
