@@ -66,7 +66,7 @@ namespace Bio.Controllers
 
         // DELETE api/<DirectorController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Language>> DeleteDirectorByID(int id)
+        public async Task<ActionResult<Director>> DeleteDirectorByID(int id)
         {
             List<Director> directorList = dataContext.Directors.ToList();
             var test = directorList.FirstOrDefault(Director => Director.directorID == id);

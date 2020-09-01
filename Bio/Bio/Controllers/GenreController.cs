@@ -68,7 +68,7 @@ namespace Bio.Controllers
 
         // DELETE api/<GenreController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Language>> DeleteGenreByID(int id)
+        public async Task<ActionResult<Genre>> DeleteGenreByID(int id)
         {
             List<Genre> genreList = dataContext.Genres.ToList();
             var test = genreList.FirstOrDefault(Genre => Genre.genreID == id);
