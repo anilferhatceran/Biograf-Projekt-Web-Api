@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Bio.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,8 +38,14 @@ namespace Bio.Controllers
 
         // POST api/<LanguageController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Language>> PostLanguage(Language language)
         {
+            dataContext.Languages.Add(language);
+            await dataContext.SaveChangesAsync();
+
+            ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
+            return language;
         }
 
         // PUT api/<LanguageController>/5
@@ -48,8 +56,15 @@ namespace Bio.Controllers
 
         // DELETE api/<LanguageController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Language>> DeleteLanguageByID(int id)
         {
+            List<Language> languageList = dataContext.Languages.ToList();
+            var test = languageList.FirstOrDefault(Language => Language.languageID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }

@@ -27,8 +27,8 @@ namespace Bio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = @"Server=DESKTOP-7OVA3OG\SQLEXPRESS;Database=BioTest;Trusted_Connection=True";
-            //var connectionString = @"Server=localhost\SQLEXPRESS;Database=BioTest;Trusted_Connection=True";
+            //var connectionString = @"Server=DESKTOP-7OVA3OG\SQLEXPRESS;Database=BioTest;Trusted_Connection=True";
+            var connectionString = @"Server=localhost\SQLEXPRESS;Database=BioTest;Trusted_Connection=True";
             services.AddDbContext<DatabaseContext>(option => option.UseSqlServer(connectionString));
             services.AddControllers();
         }
