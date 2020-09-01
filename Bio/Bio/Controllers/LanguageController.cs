@@ -66,5 +66,17 @@ namespace Bio.Controllers
 
             return test;
         }
+
+        [HttpDelete("langaugeName")]
+        public async Task<ActionResult<Language>> DeleteLangaugeByLanguageName(string langaugeName)
+        {
+            List<Language> languageList = dataContext.Languages.ToList();
+            var test = languageList.FirstOrDefault(Langauge => Langauge.languageName == langaugeName);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
+        }
     }
 }
