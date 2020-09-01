@@ -50,8 +50,15 @@ namespace Bio.Controllers
 
         // DELETE api/<MovieGenreController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<MovieGenre>> DeleteMovieGenreByID(int id)
         {
+            List<MovieGenre> movieGenreList = dataContext.MovieGenres.ToList();
+            var test = movieGenreList.FirstOrDefault(MovieGenre => MovieGenre.movieGenreID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }

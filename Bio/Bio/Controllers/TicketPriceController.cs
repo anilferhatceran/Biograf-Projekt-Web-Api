@@ -48,8 +48,15 @@ namespace Bio.Controllers
 
         // DELETE api/<TicketPriceController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<TicketPrice>> DeleteTicketPriceByID(int id)
         {
+            List<TicketPrice> ticketPriceList = dataContext.TicketPrices.ToList();
+            var test = ticketPriceList.FirstOrDefault(TicketPrice => TicketPrice.ticketPriceID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }

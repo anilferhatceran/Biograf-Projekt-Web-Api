@@ -48,8 +48,15 @@ namespace Bio.Controllers
 
         // DELETE api/<SeatRowController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<SeatRow>> DeleteSeatRowByID(int id)
         {
+            List<SeatRow> seatRowList = dataContext.SeatRows.ToList();
+            var test = seatRowList.FirstOrDefault(SeatRow => SeatRow.seatRowID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }

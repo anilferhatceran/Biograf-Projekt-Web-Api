@@ -48,8 +48,15 @@ namespace Bio.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<User>> DeleteUserByID(int id)
         {
+            List<User> userList = dataContext.Users.ToList();
+            var test = userList.FirstOrDefault(User => User.userID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }

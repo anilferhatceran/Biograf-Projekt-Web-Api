@@ -48,8 +48,15 @@ namespace Bio.Controllers
 
         // DELETE api/<ReservationController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Reservation>> DeleteReservationByID(int id)
         {
+            List<Reservation> reservationList = dataContext.Reservations.ToList();
+            var test = reservationList.FirstOrDefault(Reservation => Reservation.reservationID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }
