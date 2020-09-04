@@ -97,8 +97,15 @@ namespace Bio.Controllers
 
         // DELETE api/<MovieScreeningController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<MovieScreening>> DeleteMovieScreeningByID(int id)
         {
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var test = movieScreeningList.FirstOrDefault(MovieScreening => MovieScreening.movieScreeningID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }

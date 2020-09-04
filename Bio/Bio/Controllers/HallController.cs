@@ -75,8 +75,15 @@ namespace Bio.Controllers
 
         // DELETE api/<HallController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Hall>> DeleteHallByID(int id)
         {
+            List<Hall> hallList = dataContext.Halls.ToList();
+            var test = hallList.FirstOrDefault(Hall => Hall.hallID == id);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
     }
 }
