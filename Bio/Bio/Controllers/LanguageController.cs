@@ -107,16 +107,5 @@ namespace Bio.Controllers
 
             return test;
         }
-
-        [HttpGet("languageName")]
-        public IEnumerable<Language> GetLangaugeByLanguageName(string languageName)
-        {
-            List<Language> languageList = dataContext.Languages.ToList();
-
-            var test = languageList.Where(Language => Language.languageName == languageName);
-            return test;
-        }
-
-
     }
 }
