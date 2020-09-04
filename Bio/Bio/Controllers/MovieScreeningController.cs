@@ -36,11 +36,47 @@ namespace Bio.Controllers
 
         // GET api/<MovieScreeningController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<MovieScreening> GetMovScreeningByID(long id)
         {
-            return "value";
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var movieScreeningByID = movieScreeningList.Where(movScreening => movScreening.movieScreeningID == id);
+            return movieScreeningByID;
         }
-
+        [HttpGet("starttime")]
+        public IEnumerable<MovieScreening> GetMovieScreeningByStartTime(string starttime)
+        {
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var movieScreeningByStartTime = movieScreeningList.Where(movScreening => movScreening.screeningStartTime == starttime);
+            return movieScreeningByStartTime;
+        }
+        [HttpGet("endtime")]
+        public IEnumerable<MovieScreening> GetMovieScreeningByEndTime(string endtime)
+        {
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var movieScreeningByEndTime = movieScreeningList.Where(movScreening => movScreening.screeningEndTime == endtime);
+            return movieScreeningByEndTime;
+        }
+        [HttpGet("date")]
+        public IEnumerable<MovieScreening> GetMovieScreeningByDate(string date)
+        {
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var movieScreeningByDate = movieScreeningList.Where(movScreening => movScreening.screeningDate == Convert.ToDateTime(date));
+            return movieScreeningByDate;
+        }
+        [HttpGet("hall")]
+        public IEnumerable<MovieScreening> GetMovieByCompany(long hall)
+        {
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var movieByScreeningID = movieScreeningList.Where(movie => movie.hall.hallID == hall);
+            return movieByScreeningID;
+        }
+        [HttpGet("movie")]
+        public IEnumerable<MovieScreening> GetScreeningByMovieName(string movieName)
+        {
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            var screeningByMovieName = movieScreeningList.Where(screening => screening.movie.movieTitle == movieName);
+            return screeningByMovieName;
+        }
         // POST api/<MovieScreeningController>
         [HttpPost]
         public async Task<ActionResult<MovieScreening>> PostMovie(MovieScreening movieScreening)

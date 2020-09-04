@@ -9,7 +9,8 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-
+using System.Web;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -103,15 +104,20 @@ namespace Bio.Controllers
             var test = movieList.Where(movie => movie.releaseDate == Convert.ToDateTime(releaseDate));
             return test;
         }
-        [HttpGet("languageName")]
+        [HttpGet("movies")]
 
-        public IEnumerable<Movie> GetMovieByLanguageName(string languageName)
+        public IEnumerable<Movie> GetMovieByLanguageName(string languagename)
         {
             List<Movie> movieList = dataContext.Movies.ToList();
             List<Language> languageList = dataContext.Languages.ToList();
 
-            var test = movieList.Where(movie => movie.language.languageName == languageName);
-            return test;
+            
+            //var test = dataContext.Movies.Include(movie => movie.language.languageName);
+
+            //string language = Request.Query["lang"];
+            var moviesByLanguageName = movieList.Where(movie => movie.language.languageName == languagename);
+
+            return moviesByLanguageName;
         }
 
         //public Task<ActionResult<Movie>> GetSamurai(string title)

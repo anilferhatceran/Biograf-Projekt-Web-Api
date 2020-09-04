@@ -21,7 +21,7 @@ namespace Bio.Controllers
         }
         // GET: api/<MovieController>
         [HttpGet]
-        public IEnumerable<Reservation> GetName()
+        public IEnumerable<Reservation> GetReservations()
         {
             List<Reservation> reservationList = dataContext.Reservations.ToList();
             return reservationList;
@@ -29,9 +29,11 @@ namespace Bio.Controllers
 
         // GET api/<ReservationController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Reservation> GetReservByID(long id)
         {
-            return "value";
+            List<Reservation> reservList = dataContext.Reservations.ToList();
+            var reservsByID = reservList.Where(reservations => reservations.reservationID == id);
+            return reservsByID;
         }
 
         // POST api/<ReservationController>
