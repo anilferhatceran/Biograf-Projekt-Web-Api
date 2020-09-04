@@ -69,8 +69,18 @@ namespace Bio.Controllers
 
         // PUT api/<LanguageController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Language>> Put(int id ,string languageName ,string languageCode)
         {
+            List<Language> languageList = dataContext.Languages.ToList();
+            var test = languageList.FirstOrDefault(Language => Language.languageID == id);
+
+            test.languageName = languageName;
+            test.languageCode = languageCode;
+
+            dataContext.Update(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
 
         // DELETE api/<LanguageController>/5
@@ -106,5 +116,7 @@ namespace Bio.Controllers
             var test = languageList.Where(Language => Language.languageName == languageName);
             return test;
         }
+
+
     }
 }
