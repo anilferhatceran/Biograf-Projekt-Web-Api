@@ -29,11 +29,20 @@ namespace Bio.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<User> GetUsersByID(long id)
         {
-            return "value";
+            List<User> userList = dataContext.Users.ToList();
+            var userByID = userList.Where(user => user.userID == id);
+            return userByID;
         }
-
+        [HttpGet("useremail")]
+        public IEnumerable<User> GetUsersByEmail(string useremail)
+        {
+            List<User> userList = dataContext.Users.ToList();
+            var userByEmail = userList.Where(user => user.userEmail == useremail);
+            return userByEmail;
+        }
+       
         // POST api/<UserController>
         [HttpPost]
         public void Post([FromBody] string value)

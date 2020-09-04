@@ -21,19 +21,36 @@ namespace Bio.Controllers
         }
         // GET: api/<MovieController>
         [HttpGet]
-        public IEnumerable<MovieCompany> GetName()
+        public IEnumerable<MovieCompany> GetMovieCompanies()
         {
             List<MovieCompany> movieCompanyList = dataContext.MovieCompanies.ToList();
+            List <Movie> movieList = dataContext.Movies.ToList();
+            List<Company> companyList = dataContext.Companies.ToList();
             return movieCompanyList;
         }
 
         // GET api/<MovieCompanyController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<MovieCompany> GetCompanyByID(long id)
         {
-            return "value";
+            List<MovieCompany> movieCompanyList = dataContext.MovieCompanies.ToList();
+            var movieComByID = movieCompanyList.Where(movieCom => movieCom.movieCompanyID == id);
+            return movieComByID;
         }
-
+        [HttpGet("company")]
+        public IEnumerable<MovieCompany> GetMovieByCompany(string companyName)
+        {
+            List<MovieCompany> movieCompanyList = dataContext.MovieCompanies.ToList();
+            var movieByCompany = movieCompanyList.Where(movie => movie.company.companyName == companyName);
+            return movieByCompany;
+        }
+        [HttpGet("movie")]
+        public IEnumerable<MovieCompany> GetCompanyByMovieName(string movieName)
+        {
+            List<MovieCompany> movieCompanyList = dataContext.MovieCompanies.ToList();
+            var companyByMovieName = movieCompanyList.Where(company => company.movie.movieTitle == movieName);
+            return companyByMovieName;
+        }
         // POST api/<MovieCompanyController>
         [HttpPost]
         public void Post([FromBody] string value)

@@ -29,11 +29,21 @@ namespace Bio.Controllers
 
         // GET api/<RowController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Row> GetRowByID(long id)
         {
-            return "value";
-        }
+            List<Row> rowList = dataContext.Rows.ToList();
+            var rowByID = rowList.Where(row => row.rowID == id);
 
+            return rowByID;
+        }
+        [HttpGet("{id}")]
+        public IEnumerable<Row> GetRowByRowNum(int rowNumber)
+        {
+            List<Row> rowList = dataContext.Rows.ToList();
+            var rowByRowNum = rowList.Where(row => row.rowNumber == rowNumber);
+
+            return rowByRowNum;
+        }
         // POST api/<RowController>
         [HttpPost]
         public async Task<ActionResult<Row>> PostCompany(Row row)

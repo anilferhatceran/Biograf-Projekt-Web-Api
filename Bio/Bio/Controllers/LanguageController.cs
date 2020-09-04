@@ -23,7 +23,7 @@ namespace Bio.Controllers
         }
         // GET: api/<LanguageController>
         [HttpGet]
-        public IEnumerable<Language> GetName()
+        public IEnumerable<Language> GetLanguage()
         {
             List<Language> languageList = dataContext.Languages.ToList();
             return languageList;
@@ -31,11 +31,30 @@ namespace Bio.Controllers
 
         // GET api/<LanguageController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<Language> GetLanguageByID(long id)
         {
-            return "value";
+            List<Language> languageList = dataContext.Languages.ToList();
+            var languageByID = languageList.Where(language => language.languageID == id);
+
+            return languageByID;
         }
 
+        [HttpGet("languagename")]
+        public IEnumerable<Language> GetLanguageByName(string languagename)
+        {
+            List<Language> langaugeList = dataContext.Languages.ToList();
+            var languageByName = langaugeList.Where(language => language.languageName == languagename);
+
+            return languageByName;
+        }
+        [HttpGet("languagecode")]
+        public IEnumerable<Language> GetLanguageByCode(string languagecode)
+        {
+            List<Language> languageList = dataContext.Languages.ToList();
+            var languageByCode = languageList.Where(language => language.languageCode == languagecode);
+
+            return languageByCode;
+        }
         // POST api/<LanguageController>
         [HttpPost]
         public async Task<ActionResult<Language>> PostLanguage(Language language)

@@ -21,7 +21,7 @@ namespace Bio.Controllers
         }
         // GET: api/<MovieController>
         [HttpGet]
-        public IEnumerable<MovieGenre> GetName()
+        public IEnumerable<MovieGenre> GetMovieGenres()
         {
             List<MovieGenre> movieGenreList = dataContext.MovieGenres.ToList();
             List<Movie> movieList = dataContext.Movies.ToList();
@@ -31,11 +31,26 @@ namespace Bio.Controllers
 
         // GET api/<MovieGenreController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<MovieGenre> GetMovieGenreByID(long id)
         {
-            return "value";
+            List<MovieGenre> movGenreList = dataContext.MovieGenres.ToList();
+            var movGenByID = movGenreList.Where(movGenre => movGenre.movieGenreID == id);
+            return movGenByID;
         }
-
+        [HttpGet("genre")]
+        public IEnumerable<MovieGenre> GetMovieByGenre(string genreName)
+        {
+            List<MovieGenre> movieGenreList = dataContext.MovieGenres.ToList();
+            var movieByGenre = movieGenreList.Where(movie => movie.genre.genreName == genreName);
+            return movieByGenre;
+        }
+        [HttpGet("movie")]
+        public IEnumerable<MovieGenre> GetDirectorByMovieName(string movieName)
+        {
+            List<MovieGenre> movieGenreList = dataContext.MovieGenres.ToList();
+            var genreByMovieName = movieGenreList.Where(genre => genre.movie.movieTitle == movieName);
+            return genreByMovieName;
+        }
         // POST api/<MovieGenreController>
         [HttpPost]
         public void Post([FromBody] string value)

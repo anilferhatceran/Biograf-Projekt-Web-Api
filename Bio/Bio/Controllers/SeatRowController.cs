@@ -29,9 +29,11 @@ namespace Bio.Controllers
 
         // GET api/<SeatRowController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<SeatRow> GetSeatRowByID(long id)
         {
-            return "value";
+            List<SeatRow> seatRowList = dataContext.SeatRows.ToList();
+            var seatRowByID = seatRowList.Where(seatRow => seatRow.seatRowID == id);
+            return seatRowByID;
         }
 
         // POST api/<SeatRowController>

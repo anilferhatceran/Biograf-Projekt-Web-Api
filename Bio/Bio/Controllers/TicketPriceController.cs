@@ -29,11 +29,26 @@ namespace Bio.Controllers
 
         // GET api/<TicketPriceController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<TicketPrice> GetTicketPriceByID(long id)
         {
-            return "value";
+            List<TicketPrice> ticketPriceList = dataContext.TicketPrices.ToList();
+            var ticketPriceByID = ticketPriceList.Where(ticketPriceID => ticketPriceID.ticketPriceID == id);
+            return ticketPriceByID;
         }
-
+        [HttpGet("ticketname")]
+        public IEnumerable<TicketPrice> GetTicketPriceByName(string ticketname)
+        {
+            List<TicketPrice> ticketPriceList = dataContext.TicketPrices.ToList();
+            var ticketPriceByName = ticketPriceList.Where(ticketName => ticketName.ticketName == ticketname);
+            return ticketPriceByName;
+        }
+        [HttpGet("ticketprice")]
+        public IEnumerable<TicketPrice> GetTicketPriceByPrice(float ticketprice)
+        {
+            List<TicketPrice> ticketPriceList = dataContext.TicketPrices.ToList();
+            var ticketPriceByPrice = ticketPriceList.Where(ticketPrice => ticketPrice.ticketPrice == ticketprice);
+            return ticketPriceByPrice;
+        }
         // POST api/<TicketPriceController>
         [HttpPost]
         public void Post([FromBody] string value)
