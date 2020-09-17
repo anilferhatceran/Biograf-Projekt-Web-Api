@@ -27,10 +27,24 @@ namespace Bio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             //var connectionString = @"Server=DESKTOP-7OVA3OG\SQLEXPRESS;Database=BioTest;Trusted_Connection=True";
             var connectionString = @"Server=localhost\SQLEXPRESS;Database=BioTest;Trusted_Connection=True";
             services.AddDbContext<DatabaseContext>(option => option.UseSqlServer(connectionString));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("cors",
+                builder =>
+                {
+                    // Not a permanent solution, but just trying to isolate the problem
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                });
+            });
             services.AddControllers();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +60,8 @@ namespace Bio
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("cors");
 
             app.UseEndpoints(endpoints =>
             {
