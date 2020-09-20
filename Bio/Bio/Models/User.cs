@@ -9,9 +9,9 @@ namespace Bio.Models
     public class User
     {
         public int userID { get; set; }
-        [Required]
+        
         public string userEmail { get; set; }
-        [Required]
+        
         public string passwordHash { get; set; }
     }
 

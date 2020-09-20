@@ -9,7 +9,7 @@ namespace Bio.Models
     public class Row
     {
         public int rowID { get; set; }
-        [Required]
+        
         public int rowNumber { get; set; }
     }
 }

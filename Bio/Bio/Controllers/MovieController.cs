@@ -101,7 +101,7 @@ namespace Bio.Controllers
         {
             List<Movie> movieList = dataContext.Movies.ToList();
 
-            var test = movieList.Where(movie => movie.releaseDate == Convert.ToDateTime(releaseDate));
+            var test = movieList.Where(movie => movie.releaseDate == releaseDate);
             return test;
         }
         [HttpGet("movies")]
@@ -120,55 +120,14 @@ namespace Bio.Controllers
             return moviesByLanguageName;
         }
 
-        //public Task<ActionResult<Movie>> GetSamurai(string title)
-        //{
-        //    var movie = dataContext.Movies.Where(m => m.movieTitle == title);
-
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return movie;
-        //}
-
         // POST api/<MovieController>
         [HttpPost]
-        //Get action methods of the previous section
-        //public IHttpActionResult PostNewStudent(StudentViewModel student)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest("Invalid data.");
-
-        //    using (var ctx = new SchoolDBEntities())
-        //    {
-        //        ctx.Students.Add(new Student()
-        //        {
-        //            StudentID = student.Id,
-        //            FirstName = student.FirstName,
-        //            LastName = student.LastName
-        //        });
-
-        //        ctx.SaveChanges();
-        //    }
-
-        //    return Ok();
-        //}
-        //public async Task<ActionResult<Movie>> PostMovie(Movie movie)
-        //{
-        //    dataContext.Movies.Add(movie);
-        //    //await dataContext.SaveChangesAsync();
-
-        //    ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-        //    //return CreatedAtAction(nameof(Get, new { movieID = movie.movieID }, movie));
-        //}
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
             dataContext.Movies.Add(movie);
             await dataContext.SaveChangesAsync();
 
-            ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-            //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
+            
             return movie;
         }
 

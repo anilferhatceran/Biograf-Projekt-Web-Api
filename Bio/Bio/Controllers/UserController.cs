@@ -19,9 +19,9 @@ namespace Bio.Controllers
         {
             dataContext = dataContextObj;//
         }
-        // GET: api/<MovieController>
+        //GET: api/<MovieController>
         [HttpGet]
-        public IEnumerable<User> GetName()
+        public IEnumerable<User> GetUsers()
         {
             List<User> userList = dataContext.Users.ToList();
             return userList;
@@ -42,11 +42,14 @@ namespace Bio.Controllers
             var userByEmail = userList.Where(user => user.userEmail == useremail);
             return userByEmail;
         }
-       
+
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
+            dataContext.Users.Add(user);
+            await dataContext.SaveChangesAsync();
+            return user;
         }
 
         // PUT api/<UserController>/5

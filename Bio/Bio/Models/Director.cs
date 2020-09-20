@@ -9,7 +9,7 @@ namespace Bio.Models
     public class Director
     {
         public int directorID { get; set; }
-        [Required]
+        
         public string directorName { get; set; }
     }
 }

@@ -62,8 +62,6 @@ namespace Bio.Controllers
             dataContext.Languages.Add(language);
             await dataContext.SaveChangesAsync();
 
-            ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-            //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
             return language;
         }
 

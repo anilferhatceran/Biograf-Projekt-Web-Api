@@ -9,9 +9,9 @@ namespace Bio.Models
     public class TicketPrice
     {
         public int ticketPriceID { get; set; }
-        [Required]
+       
         public string ticketName { get; set; }
-        [Required]
+       
         public float ticketPrice { get; set; }
     }
 }

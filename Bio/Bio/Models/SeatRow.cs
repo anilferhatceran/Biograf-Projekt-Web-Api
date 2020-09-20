@@ -9,11 +9,11 @@ namespace Bio.Models
     public class SeatRow
     {
         public int seatRowID { get; set; }
-        [Required]
+        
         public Row row { get; set; }
-        [Required]
+        
         public Seat seat { get; set; }
-        [Required]
+        
         public MovieScreening movieScreening { get; set; }
     }
 }

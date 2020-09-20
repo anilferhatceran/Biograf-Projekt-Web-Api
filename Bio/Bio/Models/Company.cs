@@ -9,7 +9,7 @@ namespace Bio.Models
     public class Company
     {
         public int companyID { get; set; }
-        [Required]
+        
         public string companyName { get; set; }
     }
 }

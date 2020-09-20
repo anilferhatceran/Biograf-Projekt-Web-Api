@@ -10,9 +10,9 @@ namespace Bio.Models
     public class Language
     {
         public int languageID { get; set; }
-        [Required]
+       
         public string languageName { get; set; }
-        [Required]
+        
         public string languageCode { get; set; }
     }
 }

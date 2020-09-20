@@ -9,9 +9,9 @@ namespace Bio.Models
     public class Seat
     {
         public int seatID { get; set; }
-        [Required]
+        
         public bool seatTaken { get; set; }
-        [Required]
+        
         public int seatNumber { get; set; }
     }
 }

@@ -60,7 +60,7 @@ namespace Bio.Controllers
         public IEnumerable<MovieScreening> GetMovieScreeningByDate(string date)
         {
             List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
-            var movieScreeningByDate = movieScreeningList.Where(movScreening => movScreening.screeningDate == Convert.ToDateTime(date));
+            var movieScreeningByDate = movieScreeningList.Where(movScreening => movScreening.screeningDate == date);
             return movieScreeningByDate;
         }
         [HttpGet("hall")]

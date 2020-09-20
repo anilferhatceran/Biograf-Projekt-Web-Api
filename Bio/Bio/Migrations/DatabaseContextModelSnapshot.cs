@@ -119,8 +119,8 @@ namespace Bio.Migrations
                     b.Property<string>("movieTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("releaseDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("releaseDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("movieID");
 
@@ -208,8 +208,8 @@ namespace Bio.Migrations
                     b.Property<int?>("movieID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("screeningDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("screeningDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("screeningEndTime")
                         .HasColumnType("nvarchar(max)");
@@ -348,8 +348,8 @@ namespace Bio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("passwordHash")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("passwordHash")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("userEmail")
                         .HasColumnType("nvarchar(max)");
