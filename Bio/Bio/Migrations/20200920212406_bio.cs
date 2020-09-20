@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bio.Migrations
 {
-    public partial class BioTest002 : Migration
+    public partial class bio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +12,7 @@ namespace Bio.Migrations
                 {
                     companyID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    companyName = table.Column<string>(nullable: true)
+                    companyName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +25,7 @@ namespace Bio.Migrations
                 {
                     directorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    directorName = table.Column<string>(nullable: true)
+                    directorName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +38,7 @@ namespace Bio.Migrations
                 {
                     genreID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    genreName = table.Column<string>(nullable: true)
+                    genreName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,33 +74,6 @@ namespace Bio.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MovieGenres",
-                columns: table => new
-                {
-                    movieGenreID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MovieGenres", x => x.movieGenreID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MovieScreenings",
-                columns: table => new
-                {
-                    movieScreeningID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    screeningDate = table.Column<DateTime>(nullable: false),
-                    screeningStartTime = table.Column<string>(nullable: true),
-                    screeningEndTime = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MovieScreenings", x => x.movieScreeningID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rows",
                 columns: table => new
                 {
@@ -134,7 +106,7 @@ namespace Bio.Migrations
                 {
                     ticketPriceID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ticketName = table.Column<string>(nullable: true),
+                    ticketName = table.Column<string>(nullable: false),
                     ticketPrice = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
@@ -148,8 +120,8 @@ namespace Bio.Migrations
                 {
                     userID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userEmail = table.Column<string>(nullable: true),
-                    passwordHash = table.Column<byte[]>(nullable: true)
+                    userEmail = table.Column<string>(nullable: false),
+                    password = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,10 +134,10 @@ namespace Bio.Migrations
                 {
                     movieID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    movieTitle = table.Column<string>(nullable: true),
-                    releaseDate = table.Column<DateTime>(nullable: false),
-                    movieDesc = table.Column<string>(nullable: true),
-                    movieRunTime = table.Column<string>(nullable: true),
+                    movieTitle = table.Column<string>(nullable: false),
+                    releaseDate = table.Column<string>(nullable: false),
+                    movieDesc = table.Column<string>(nullable: false),
+                    movieRunTime = table.Column<string>(nullable: false),
                     languageID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -176,25 +148,6 @@ namespace Bio.Migrations
                         column: x => x.languageID,
                         principalTable: "Languages",
                         principalColumn: "languageID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SeatRows",
-                columns: table => new
-                {
-                    seatRowID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    movieScreeningID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SeatRows", x => x.seatRowID);
-                    table.ForeignKey(
-                        name: "FK_SeatRows_MovieScreenings_movieScreeningID",
-                        column: x => x.movieScreeningID,
-                        principalTable: "MovieScreenings",
-                        principalColumn: "movieScreeningID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -231,7 +184,7 @@ namespace Bio.Migrations
                     movieDirectorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     movieID = table.Column<int>(nullable: true),
-                    directorID = table.Column<int>(nullable: true)
+                    directorID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,9 +194,64 @@ namespace Bio.Migrations
                         column: x => x.directorID,
                         principalTable: "Directors",
                         principalColumn: "directorID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MovieDirectors_Movies_movieID",
+                        column: x => x.movieID,
+                        principalTable: "Movies",
+                        principalColumn: "movieID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovieGenres",
+                columns: table => new
+                {
+                    movieGenreID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    movieID = table.Column<int>(nullable: true),
+                    genreID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieGenres", x => x.movieGenreID);
+                    table.ForeignKey(
+                        name: "FK_MovieGenres_Genres_genreID",
+                        column: x => x.genreID,
+                        principalTable: "Genres",
+                        principalColumn: "genreID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MovieGenres_Movies_movieID",
+                        column: x => x.movieID,
+                        principalTable: "Movies",
+                        principalColumn: "movieID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovieScreenings",
+                columns: table => new
+                {
+                    movieScreeningID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    movieID = table.Column<int>(nullable: true),
+                    hallID = table.Column<int>(nullable: true),
+                    screeningDate = table.Column<string>(nullable: false),
+                    screeningStartTime = table.Column<string>(nullable: false),
+                    screeningEndTime = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieScreenings", x => x.movieScreeningID);
+                    table.ForeignKey(
+                        name: "FK_MovieScreenings_Halls_hallID",
+                        column: x => x.hallID,
+                        principalTable: "Halls",
+                        principalColumn: "hallID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MovieScreenings_Movies_movieID",
                         column: x => x.movieID,
                         principalTable: "Movies",
                         principalColumn: "movieID",
@@ -256,7 +264,7 @@ namespace Bio.Migrations
                 {
                     reservationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    seatRowID = table.Column<int>(nullable: true),
+                    userID = table.Column<int>(nullable: true),
                     movieScreeningID = table.Column<int>(nullable: true),
                     priceticketPriceID = table.Column<int>(nullable: true),
                     hallID = table.Column<int>(nullable: true)
@@ -283,10 +291,43 @@ namespace Bio.Migrations
                         principalColumn: "ticketPriceID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservations_SeatRows_seatRowID",
-                        column: x => x.seatRowID,
-                        principalTable: "SeatRows",
-                        principalColumn: "seatRowID",
+                        name: "FK_Reservations_Users_userID",
+                        column: x => x.userID,
+                        principalTable: "Users",
+                        principalColumn: "userID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SeatRows",
+                columns: table => new
+                {
+                    seatRowID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    rowID = table.Column<int>(nullable: true),
+                    seatID = table.Column<int>(nullable: true),
+                    movieScreeningID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeatRows", x => x.seatRowID);
+                    table.ForeignKey(
+                        name: "FK_SeatRows_MovieScreenings_movieScreeningID",
+                        column: x => x.movieScreeningID,
+                        principalTable: "MovieScreenings",
+                        principalColumn: "movieScreeningID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SeatRows_Rows_rowID",
+                        column: x => x.rowID,
+                        principalTable: "Rows",
+                        principalColumn: "rowID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SeatRows_Seats_seatID",
+                        column: x => x.seatID,
+                        principalTable: "Seats",
+                        principalColumn: "seatID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -311,9 +352,29 @@ namespace Bio.Migrations
                 column: "movieID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MovieGenres_genreID",
+                table: "MovieGenres",
+                column: "genreID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovieGenres_movieID",
+                table: "MovieGenres",
+                column: "movieID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Movies_languageID",
                 table: "Movies",
                 column: "languageID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovieScreenings_hallID",
+                table: "MovieScreenings",
+                column: "hallID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovieScreenings_movieID",
+                table: "MovieScreenings",
+                column: "movieID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_hallID",
@@ -331,21 +392,28 @@ namespace Bio.Migrations
                 column: "priceticketPriceID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_seatRowID",
+                name: "IX_Reservations_userID",
                 table: "Reservations",
-                column: "seatRowID");
+                column: "userID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SeatRows_movieScreeningID",
                 table: "SeatRows",
                 column: "movieScreeningID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeatRows_rowID",
+                table: "SeatRows",
+                column: "rowID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeatRows_seatID",
+                table: "SeatRows",
+                column: "seatID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Genres");
-
             migrationBuilder.DropTable(
                 name: "MovieCompanies");
 
@@ -359,13 +427,7 @@ namespace Bio.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
-                name: "Rows");
-
-            migrationBuilder.DropTable(
-                name: "Seats");
-
-            migrationBuilder.DropTable(
-                name: "Users");
+                name: "SeatRows");
 
             migrationBuilder.DropTable(
                 name: "Companies");
@@ -374,22 +436,31 @@ namespace Bio.Migrations
                 name: "Directors");
 
             migrationBuilder.DropTable(
-                name: "Movies");
-
-            migrationBuilder.DropTable(
-                name: "Halls");
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "TicketPrices");
 
             migrationBuilder.DropTable(
-                name: "SeatRows");
-
-            migrationBuilder.DropTable(
-                name: "Languages");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "MovieScreenings");
+
+            migrationBuilder.DropTable(
+                name: "Rows");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
+
+            migrationBuilder.DropTable(
+                name: "Halls");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "Languages");
         }
     }
 }

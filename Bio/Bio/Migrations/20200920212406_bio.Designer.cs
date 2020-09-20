@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bio.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200827094536_BioTest002")]
-    partial class BioTest002
+    [Migration("20200920212406_bio")]
+    partial class bio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,7 @@ namespace Bio.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("companyName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("companyID");
@@ -44,6 +45,7 @@ namespace Bio.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("directorName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("directorID");
@@ -59,6 +61,7 @@ namespace Bio.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("genreName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("genreID");
@@ -113,16 +116,20 @@ namespace Bio.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("movieDesc")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("movieRunTime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("movieTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("releaseDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("releaseDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("movieID");
 
@@ -160,7 +167,7 @@ namespace Bio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("directorID")
+                    b.Property<int>("directorID")
                         .HasColumnType("int");
 
                     b.Property<int?>("movieID")
@@ -182,7 +189,17 @@ namespace Bio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("genreID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("movieID")
+                        .HasColumnType("int");
+
                     b.HasKey("movieGenreID");
+
+                    b.HasIndex("genreID");
+
+                    b.HasIndex("movieID");
 
                     b.ToTable("MovieGenres");
                 });
@@ -194,16 +211,29 @@ namespace Bio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("screeningDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("hallID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("movieID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("screeningDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("screeningEndTime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("screeningStartTime")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("movieScreeningID");
+
+                    b.HasIndex("hallID");
+
+                    b.HasIndex("movieID");
 
                     b.ToTable("MovieScreenings");
                 });
@@ -224,7 +254,7 @@ namespace Bio.Migrations
                     b.Property<int?>("priceticketPriceID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("seatRowID")
+                    b.Property<int?>("userID")
                         .HasColumnType("int");
 
                     b.HasKey("reservationID");
@@ -235,7 +265,7 @@ namespace Bio.Migrations
 
                     b.HasIndex("priceticketPriceID");
 
-                    b.HasIndex("seatRowID");
+                    b.HasIndex("userID");
 
                     b.ToTable("Reservations");
                 });
@@ -283,9 +313,19 @@ namespace Bio.Migrations
                     b.Property<int?>("movieScreeningID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("rowID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("seatID")
+                        .HasColumnType("int");
+
                     b.HasKey("seatRowID");
 
                     b.HasIndex("movieScreeningID");
+
+                    b.HasIndex("rowID");
+
+                    b.HasIndex("seatID");
 
                     b.ToTable("SeatRows");
                 });
@@ -298,6 +338,7 @@ namespace Bio.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ticketName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("ticketPrice")
@@ -315,10 +356,12 @@ namespace Bio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("passwordHash")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("userEmail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("userID");
@@ -348,7 +391,31 @@ namespace Bio.Migrations
                 {
                     b.HasOne("Bio.Models.Director", "director")
                         .WithMany()
-                        .HasForeignKey("directorID");
+                        .HasForeignKey("directorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bio.Models.Movie", "movie")
+                        .WithMany()
+                        .HasForeignKey("movieID");
+                });
+
+            modelBuilder.Entity("Bio.Models.MovieGenre", b =>
+                {
+                    b.HasOne("Bio.Models.Genre", "genre")
+                        .WithMany()
+                        .HasForeignKey("genreID");
+
+                    b.HasOne("Bio.Models.Movie", "movie")
+                        .WithMany()
+                        .HasForeignKey("movieID");
+                });
+
+            modelBuilder.Entity("Bio.Models.MovieScreening", b =>
+                {
+                    b.HasOne("Bio.Models.Hall", "hall")
+                        .WithMany()
+                        .HasForeignKey("hallID");
 
                     b.HasOne("Bio.Models.Movie", "movie")
                         .WithMany()
@@ -369,9 +436,9 @@ namespace Bio.Migrations
                         .WithMany()
                         .HasForeignKey("priceticketPriceID");
 
-                    b.HasOne("Bio.Models.SeatRow", "seatRow")
+                    b.HasOne("Bio.Models.User", "user")
                         .WithMany()
-                        .HasForeignKey("seatRowID");
+                        .HasForeignKey("userID");
                 });
 
             modelBuilder.Entity("Bio.Models.SeatRow", b =>
@@ -379,6 +446,14 @@ namespace Bio.Migrations
                     b.HasOne("Bio.Models.MovieScreening", "movieScreening")
                         .WithMany()
                         .HasForeignKey("movieScreeningID");
+
+                    b.HasOne("Bio.Models.Row", "row")
+                        .WithMany()
+                        .HasForeignKey("rowID");
+
+                    b.HasOne("Bio.Models.Seat", "seat")
+                        .WithMany()
+                        .HasForeignKey("seatID");
                 });
 #pragma warning restore 612, 618
         }

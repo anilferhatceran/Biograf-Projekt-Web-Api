@@ -9,7 +9,6 @@ namespace Bio.Models
     public class MovieDirector
     {
         public int movieDirectorID { get; set; }
-        [Required]
         public Movie movie { get; set; }
         [Required]
         public Director director { get; set; }

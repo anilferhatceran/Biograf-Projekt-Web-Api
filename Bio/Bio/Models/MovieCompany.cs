@@ -9,9 +9,7 @@ namespace Bio.Models
     public class MovieCompany
     {
         public int movieCompanyID { get; set; }
-        [Required]
         public Movie movie { get; set; }
-        [Required]
         public Company company { get; set; }
     }
 }

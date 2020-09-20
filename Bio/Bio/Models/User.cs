@@ -12,7 +12,7 @@ namespace Bio.Models
         [Required]
         public string userEmail { get; set; }
         [Required]
-        public string passwordHash { get; set; }
+        public string password { get; set; }
     }
 
 }

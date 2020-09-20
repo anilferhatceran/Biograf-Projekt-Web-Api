@@ -101,7 +101,7 @@ namespace Bio.Controllers
         {
             List<Movie> movieList = dataContext.Movies.ToList();
 
-            var test = movieList.Where(movie => movie.releaseDate == Convert.ToDateTime(releaseDate));
+            var test = movieList.Where(movie => movie.releaseDate == releaseDate);
             return test;
         }
         [HttpGet("movies")]
@@ -164,6 +164,7 @@ namespace Bio.Controllers
         //}
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
+            movie.language = dataContext.Languages.Where(language => language.languageID == movie.language.languageID).FirstOrDefault();
             dataContext.Movies.Add(movie);
             await dataContext.SaveChangesAsync();
 
