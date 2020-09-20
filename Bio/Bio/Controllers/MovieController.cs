@@ -124,6 +124,7 @@ namespace Bio.Controllers
         [HttpPost]
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
+            movie.language = dataContext.Languages.Where(language => language.languageID == movie.language.languageID).FirstOrDefault();
             dataContext.Movies.Add(movie);
             await dataContext.SaveChangesAsync();
 

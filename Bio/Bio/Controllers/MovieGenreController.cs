@@ -53,8 +53,14 @@ namespace Bio.Controllers
         }
         // POST api/<MovieGenreController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<MovieGenre>> PostMovieGenre(MovieGenre movieGenre)
         {
+            dataContext.MovieGenres.Add(movieGenre);
+            await dataContext.SaveChangesAsync();
+
+            ////return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
+            return movieGenre;
         }
 
         // PUT api/<MovieGenreController>/5
