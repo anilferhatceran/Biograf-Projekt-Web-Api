@@ -59,7 +59,35 @@ namespace Bio.Controllers
             //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
             return genre;
         }
-        // PUT api/<LanguageController>/5
+
+        // PUT api/<GenreController>/5
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<Genre>> Put(int id,string genreName)
+        //{
+        //    List<Genre> genreList = dataContext.Genres.ToList();
+        //    var putGenre = genreList.FirstOrDefault(genre => genre.genreName == genreName);
+
+        //    putGenre.genreName = genreName;
+
+        //    dataContext.Update(putGenre);
+        //    await dataContext.SaveChangesAsync();
+
+        //    return putGenre;
+        //}
+
+        //[HttpPut("updateGenre")]
+        //public async Task<ActionResult<Genre>> Put(string genreName)
+        //{
+        //    List<Genre> genreList = dataContext.Genres.ToList();
+        //    var putGenre = genreList.FirstOrDefault(genre => genre.genreName == genreName);
+
+        //    putGenre.genreName = genreName;
+
+        //    dataContext.Update(putGenre);
+        //    await dataContext.SaveChangesAsync();
+
+        //    return putGenre;
+        //}
         [HttpPut("{id}")]
         public async Task<ActionResult<Genre>> Put(int id, string genreName)
         {
@@ -73,7 +101,6 @@ namespace Bio.Controllers
 
             return test;
         }
-
         // DELETE api/<GenreController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Genre>> DeleteGenreByID(int id)
@@ -99,6 +126,18 @@ namespace Bio.Controllers
             await dataContext.SaveChangesAsync();
 
             return putGenre;
+        }
+        
+        [HttpDelete("deleteGenreName")]
+        public async Task<ActionResult<Genre>> DeleteGenreByGenreName(string genreName)
+        {
+            List<Genre> genreList = dataContext.Genres.ToList();
+            var deleteGenre = genreList.FirstOrDefault(genre => genre.genreName == genreName);
+
+            dataContext.Remove(deleteGenre);
+            await dataContext.SaveChangesAsync();
+
+            return deleteGenre;
         }
     }
 }
