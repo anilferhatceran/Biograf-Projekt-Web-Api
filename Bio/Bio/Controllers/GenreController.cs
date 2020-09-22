@@ -59,11 +59,19 @@ namespace Bio.Controllers
             //return CreatedAtAction(nameof(Get), new { movieID = movie.movieID }, movie);
             return genre;
         }
-
-        // PUT api/<GenreController>/5
+        // PUT api/<LanguageController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Genre>> Put(int id, string genreName)
         {
+            List<Genre> genreList = dataContext.Genres.ToList();
+            var test = genreList.FirstOrDefault(Genre => Genre.genreID == id);
+
+            test.genreName = genreName;
+
+            dataContext.Update(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
         }
 
         // DELETE api/<GenreController>/5
@@ -77,6 +85,20 @@ namespace Bio.Controllers
             await dataContext.SaveChangesAsync();
 
             return test;
+        }
+
+        [HttpPut("updateGenre")]
+        public async Task<ActionResult<Genre>> Put(string genreName)
+        {
+            List<Genre> genreList = dataContext.Genres.ToList();
+            var putGenre = genreList.FirstOrDefault(genre => genre.genreName == genreName);
+
+            putGenre.genreName = genreName;
+
+            dataContext.Update(putGenre);
+            await dataContext.SaveChangesAsync();
+
+            return putGenre;
         }
     }
 }
