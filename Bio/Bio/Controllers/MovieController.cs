@@ -150,5 +150,17 @@ namespace Bio.Controllers
 
             return test;
         }
+
+        [HttpDelete("deleteMovieTitle")]
+        public async Task<ActionResult<Movie>> DeleteMovieByMovieTitle(string movieTitle)
+        {
+            List<Movie> movieList = dataContext.Movies.ToList();
+            var test = movieList.FirstOrDefault(Movie => Movie.movieTitle == movieTitle);
+
+            dataContext.Remove(test);
+            await dataContext.SaveChangesAsync();
+
+            return test;
+        }
     }
 }
