@@ -2,11 +2,7 @@
 
 namespace Bio.Migrations
 {
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
-    public partial class BioProject : Migration
-=======
     public partial class bio : Migration
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +12,7 @@ namespace Bio.Migrations
                 {
                     companyID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    companyName = table.Column<string>(nullable: false)
+                    companyName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +25,7 @@ namespace Bio.Migrations
                 {
                     directorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    directorName = table.Column<string>(nullable: false)
+                    directorName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,7 +38,7 @@ namespace Bio.Migrations
                 {
                     genreID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    genreName = table.Column<string>(nullable: false)
+                    genreName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,7 +106,7 @@ namespace Bio.Migrations
                 {
                     ticketPriceID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ticketName = table.Column<string>(nullable: false),
+                    ticketName = table.Column<string>(nullable: true),
                     ticketPrice = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
@@ -124,13 +120,8 @@ namespace Bio.Migrations
                 {
                     userID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
                     userEmail = table.Column<string>(nullable: true),
                     passwordHash = table.Column<string>(nullable: true)
-=======
-                    userEmail = table.Column<string>(nullable: false),
-                    password = table.Column<string>(nullable: false)
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
                 },
                 constraints: table =>
                 {
@@ -143,17 +134,10 @@ namespace Bio.Migrations
                 {
                     movieID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
                     movieTitle = table.Column<string>(nullable: true),
                     releaseDate = table.Column<string>(nullable: true),
                     movieDesc = table.Column<string>(nullable: true),
                     movieRunTime = table.Column<string>(nullable: true),
-=======
-                    movieTitle = table.Column<string>(nullable: false),
-                    releaseDate = table.Column<string>(nullable: false),
-                    movieDesc = table.Column<string>(nullable: false),
-                    movieRunTime = table.Column<string>(nullable: false),
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
                     languageID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -200,7 +184,7 @@ namespace Bio.Migrations
                     movieDirectorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     movieID = table.Column<int>(nullable: true),
-                    directorID = table.Column<int>(nullable: false)
+                    directorID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -210,7 +194,7 @@ namespace Bio.Migrations
                         column: x => x.directorID,
                         principalTable: "Directors",
                         principalColumn: "directorID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_MovieDirectors_Movies_movieID",
                         column: x => x.movieID,
@@ -253,15 +237,9 @@ namespace Bio.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     movieID = table.Column<int>(nullable: true),
                     hallID = table.Column<int>(nullable: true),
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
                     screeningDate = table.Column<string>(nullable: true),
                     screeningStartTime = table.Column<string>(nullable: true),
                     screeningEndTime = table.Column<string>(nullable: true)
-=======
-                    screeningDate = table.Column<string>(nullable: false),
-                    screeningStartTime = table.Column<string>(nullable: false),
-                    screeningEndTime = table.Column<string>(nullable: false)
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
                 },
                 constraints: table =>
                 {
@@ -281,7 +259,6 @@ namespace Bio.Migrations
                 });
 
             migrationBuilder.CreateTable(
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
                 name: "SeatRows",
                 columns: table => new
                 {
@@ -315,18 +292,13 @@ namespace Bio.Migrations
                 });
 
             migrationBuilder.CreateTable(
-=======
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
                 name: "Reservations",
                 columns: table => new
                 {
                     reservationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     userID = table.Column<int>(nullable: true),
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
                     seatRowID = table.Column<int>(nullable: true),
-=======
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
                     movieScreeningID = table.Column<int>(nullable: true),
                     priceticketPriceID = table.Column<int>(nullable: true),
                     hallID = table.Column<int>(nullable: true)
@@ -353,43 +325,10 @@ namespace Bio.Migrations
                         principalColumn: "ticketPriceID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservations_Users_userID",
-                        column: x => x.userID,
-                        principalTable: "Users",
-                        principalColumn: "userID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SeatRows",
-                columns: table => new
-                {
-                    seatRowID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    rowID = table.Column<int>(nullable: true),
-                    seatID = table.Column<int>(nullable: true),
-                    movieScreeningID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SeatRows", x => x.seatRowID);
-                    table.ForeignKey(
-                        name: "FK_SeatRows_MovieScreenings_movieScreeningID",
-                        column: x => x.movieScreeningID,
-                        principalTable: "MovieScreenings",
-                        principalColumn: "movieScreeningID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SeatRows_Rows_rowID",
-                        column: x => x.rowID,
-                        principalTable: "Rows",
-                        principalColumn: "rowID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SeatRows_Seats_seatID",
-                        column: x => x.seatID,
-                        principalTable: "Seats",
-                        principalColumn: "seatID",
+                        name: "FK_Reservations_SeatRows_seatRowID",
+                        column: x => x.seatRowID,
+                        principalTable: "SeatRows",
+                        principalColumn: "seatRowID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reservations_Users_userID",
@@ -460,9 +399,9 @@ namespace Bio.Migrations
                 column: "priceticketPriceID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_userID",
+                name: "IX_Reservations_seatRowID",
                 table: "Reservations",
-                column: "userID");
+                column: "seatRowID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_userID",
@@ -500,7 +439,6 @@ namespace Bio.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
-<<<<<<< HEAD:Bio/Bio/Migrations/20200918183718_BioProject.cs
                 name: "Companies");
 
             migrationBuilder.DropTable(
@@ -514,21 +452,6 @@ namespace Bio.Migrations
 
             migrationBuilder.DropTable(
                 name: "SeatRows");
-=======
-                name: "SeatRows");
-
-            migrationBuilder.DropTable(
-                name: "Companies");
-
-            migrationBuilder.DropTable(
-                name: "Directors");
-
-            migrationBuilder.DropTable(
-                name: "Genres");
-
-            migrationBuilder.DropTable(
-                name: "TicketPrices");
->>>>>>> 48dc7b452f9d7d50e872ce58fce785dbd24ae739:Bio/Bio/Migrations/20200920212406_bio.cs
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -79,8 +79,10 @@ namespace Bio.Controllers
         }
         // POST api/<MovieScreeningController>
         [HttpPost]
-        public async Task<ActionResult<MovieScreening>> PostMovie(MovieScreening movieScreening)
+        public async Task<ActionResult<MovieScreening>> PostMovieScreening(MovieScreening movieScreening)
         {
+            movieScreening.movie = dataContext.Movies.Where(movie => movie.movieID == movieScreening.movie.movieID).FirstOrDefault();
+            movieScreening.hall = dataContext.Halls.Where(hall => hall.hallID == movieScreening.hall.hallID).FirstOrDefault();
             dataContext.MovieScreenings.Add(movieScreening);
             await dataContext.SaveChangesAsync();
 

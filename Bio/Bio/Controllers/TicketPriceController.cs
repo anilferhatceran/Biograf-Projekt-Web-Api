@@ -51,8 +51,13 @@ namespace Bio.Controllers
         }
         // POST api/<TicketPriceController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<TicketPrice>> PostMovie(TicketPrice ticketPrice)
         {
+            dataContext.TicketPrices.Add(ticketPrice);
+            await dataContext.SaveChangesAsync();
+
+
+            return ticketPrice;
         }
 
         // PUT api/<TicketPriceController>/5

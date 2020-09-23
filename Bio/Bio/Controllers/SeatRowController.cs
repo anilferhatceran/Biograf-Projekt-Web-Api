@@ -23,6 +23,8 @@ namespace Bio.Controllers
         [HttpGet]
         public IEnumerable<SeatRow> GetName()
         {
+            List<Seat> seatList = dataContext.Seats.ToList();
+            List<Row> rowList = dataContext.Rows.ToList();
             List<SeatRow> seatRowList = dataContext.SeatRows.ToList();
             return seatRowList;
         }
@@ -38,8 +40,16 @@ namespace Bio.Controllers
 
         // POST api/<SeatRowController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<SeatRow>> PostSeatRow(SeatRow seatRow)
         {
+            seatRow.row = dataContext.Rows.Where(row => row.rowID == seatRow.row.rowID).FirstOrDefault();
+            seatRow.seat = dataContext.Seats.Where(seat => seat.seatID == seatRow.seat.seatID).FirstOrDefault();
+            seatRow.movieScreening = dataContext.MovieScreenings.Where(movieScreening => movieScreening.movieScreeningID == seatRow.movieScreening.movieScreeningID).FirstOrDefault();
+            dataContext.SeatRows.Add(seatRow);
+            await dataContext.SaveChangesAsync();
+
+
+            return seatRow;
         }
 
         // PUT api/<SeatRowController>/5
