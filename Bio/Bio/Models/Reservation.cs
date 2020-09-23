@@ -15,7 +15,7 @@ namespace Bio.Models
         public SeatRow seatRow { get; set; }
         public MovieScreening movieScreening { get; set; }
         
-        public TicketPrice price { get; set; }
+        public TicketPrice ticketPrice { get; set; }
         
         public Hall hall { get; set; }
     }

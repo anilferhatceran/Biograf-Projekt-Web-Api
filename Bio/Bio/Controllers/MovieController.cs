@@ -83,6 +83,7 @@ namespace Bio.Controllers
         public IEnumerable<Movie> GetMovieByID(long id)
         {
             List<Movie> movieList = dataContext.Movies.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
             var test = movieList.Where(movie => movie.movieID == id);
             return test;
         }
@@ -91,6 +92,7 @@ namespace Bio.Controllers
         public IEnumerable<Movie> GetMovieByTitle(string title)
         {
             List<Movie> movieList = dataContext.Movies.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
 
             var test = movieList.Where(movie => movie.movieTitle == title);
             return test;
@@ -100,6 +102,7 @@ namespace Bio.Controllers
         public IEnumerable<Movie> GetMovieByReleaseDate(string releaseDate)
         {
             List<Movie> movieList = dataContext.Movies.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
 
             var test = movieList.Where(movie => movie.releaseDate == releaseDate);
             return test;

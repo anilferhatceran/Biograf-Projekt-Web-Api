@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bio.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200922063930_bio")]
+    [Migration("20200923172312_bio")]
     partial class bio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,10 +241,10 @@ namespace Bio.Migrations
                     b.Property<int?>("movieScreeningID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("priceticketPriceID")
+                    b.Property<int?>("seatRowID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("seatRowID")
+                    b.Property<int?>("ticketPriceID")
                         .HasColumnType("int");
 
                     b.Property<int?>("userID")
@@ -256,9 +256,9 @@ namespace Bio.Migrations
 
                     b.HasIndex("movieScreeningID");
 
-                    b.HasIndex("priceticketPriceID");
-
                     b.HasIndex("seatRowID");
+
+                    b.HasIndex("ticketPriceID");
 
                     b.HasIndex("userID");
 
@@ -422,13 +422,13 @@ namespace Bio.Migrations
                         .WithMany()
                         .HasForeignKey("movieScreeningID");
 
-                    b.HasOne("Bio.Models.TicketPrice", "price")
-                        .WithMany()
-                        .HasForeignKey("priceticketPriceID");
-
                     b.HasOne("Bio.Models.SeatRow", "seatRow")
                         .WithMany()
                         .HasForeignKey("seatRowID");
+
+                    b.HasOne("Bio.Models.TicketPrice", "ticketPrice")
+                        .WithMany()
+                        .HasForeignKey("ticketPriceID");
 
                     b.HasOne("Bio.Models.User", "user")
                         .WithMany()

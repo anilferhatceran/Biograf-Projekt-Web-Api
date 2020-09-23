@@ -26,6 +26,10 @@ namespace Bio.Controllers
             List<Seat> seatList = dataContext.Seats.ToList();
             List<Row> rowList = dataContext.Rows.ToList();
             List<SeatRow> seatRowList = dataContext.SeatRows.ToList();
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            List<Movie> movieList = dataContext.Movies.ToList();
+            List<Hall> hallList = dataContext.Halls.ToList();
+            List<Language> languagesList = dataContext.Languages.ToList();
             return seatRowList;
         }
 

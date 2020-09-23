@@ -300,7 +300,7 @@ namespace Bio.Migrations
                     userID = table.Column<int>(nullable: true),
                     seatRowID = table.Column<int>(nullable: true),
                     movieScreeningID = table.Column<int>(nullable: true),
-                    priceticketPriceID = table.Column<int>(nullable: true),
+                    ticketPriceID = table.Column<int>(nullable: true),
                     hallID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -319,16 +319,16 @@ namespace Bio.Migrations
                         principalColumn: "movieScreeningID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reservations_TicketPrices_priceticketPriceID",
-                        column: x => x.priceticketPriceID,
-                        principalTable: "TicketPrices",
-                        principalColumn: "ticketPriceID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Reservations_SeatRows_seatRowID",
                         column: x => x.seatRowID,
                         principalTable: "SeatRows",
                         principalColumn: "seatRowID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_TicketPrices_ticketPriceID",
+                        column: x => x.ticketPriceID,
+                        principalTable: "TicketPrices",
+                        principalColumn: "ticketPriceID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reservations_Users_userID",
@@ -394,14 +394,14 @@ namespace Bio.Migrations
                 column: "movieScreeningID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_priceticketPriceID",
-                table: "Reservations",
-                column: "priceticketPriceID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_seatRowID",
                 table: "Reservations",
                 column: "seatRowID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ticketPriceID",
+                table: "Reservations",
+                column: "ticketPriceID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_userID",
@@ -448,10 +448,10 @@ namespace Bio.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "TicketPrices");
+                name: "SeatRows");
 
             migrationBuilder.DropTable(
-                name: "SeatRows");
+                name: "TicketPrices");
 
             migrationBuilder.DropTable(
                 name: "Users");

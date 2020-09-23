@@ -24,6 +24,7 @@ namespace Bio.Controllers
         public IEnumerable<MovieGenre> GetMovieGenres()
         {
             List<MovieGenre> movieGenreList = dataContext.MovieGenres.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
             List<Movie> movieList = dataContext.Movies.ToList();
             List<Genre> genreList = dataContext.Genres.ToList();
             return movieGenreList;
@@ -55,6 +56,8 @@ namespace Bio.Controllers
         [HttpPost]
         public async Task<ActionResult<MovieGenre>> PostMovieGenre(MovieGenre movieGenre)
         {
+            movieGenre.movie = dataContext.Movies.Where(movie => movie.movieID == movieGenre.movie.movieID).FirstOrDefault();
+            movieGenre.genre = dataContext.Genres.Where(genre => genre.genreID == movieGenre.genre.genreID).FirstOrDefault();
             dataContext.MovieGenres.Add(movieGenre);
             await dataContext.SaveChangesAsync();
 

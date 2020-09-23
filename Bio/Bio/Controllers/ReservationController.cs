@@ -24,6 +24,15 @@ namespace Bio.Controllers
         public IEnumerable<Reservation> GetReservations()
         {
             List<Reservation> reservationList = dataContext.Reservations.ToList();
+            List<User> userList = dataContext.Users.ToList();
+            List<SeatRow> seatRowList = dataContext.SeatRows.ToList();
+            List<MovieScreening> movieScreeningList = dataContext.MovieScreenings.ToList();
+            List<TicketPrice> ticketPriceList = dataContext.TicketPrices.ToList();
+            List<Hall> hallList = dataContext.Halls.ToList();
+            List<Movie> movieList = dataContext.Movies.ToList();
+            List<Row> rowList = dataContext.Rows.ToList();
+            List<Seat> seatList = dataContext.Seats.ToList();
+            List<Language> languageList = dataContext.Languages.ToList();
             return reservationList;
         }
 
@@ -38,8 +47,18 @@ namespace Bio.Controllers
 
         // POST api/<ReservationController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Reservation>> PostReservation(Reservation reservation)
         {
+            reservation.user = dataContext.Users.Where(user => user.userID == reservation.user.userID).FirstOrDefault();
+            reservation.seatRow = dataContext.SeatRows.Where(seatRow => seatRow.seatRowID == reservation.seatRow.seatRowID).FirstOrDefault();
+            reservation.movieScreening = dataContext.MovieScreenings.Where(MovieScreening => MovieScreening.movieScreeningID == reservation.movieScreening.movieScreeningID).FirstOrDefault();
+            reservation.ticketPrice = dataContext.TicketPrices.Where(ticketPrice => ticketPrice.ticketPriceID == reservation.ticketPrice.ticketPriceID).FirstOrDefault();
+            reservation.hall = dataContext.Halls.Where(hall => hall.hallID == reservation.hall.hallID).FirstOrDefault();
+            dataContext.Reservations.Add(reservation);
+            await dataContext.SaveChangesAsync();
+
+
+            return reservation;
         }
 
         // PUT api/<ReservationController>/5
