@@ -54,6 +54,7 @@ namespace Bio.Controllers
             reservation.movieScreening = dataContext.MovieScreenings.Where(MovieScreening => MovieScreening.movieScreeningID == reservation.movieScreening.movieScreeningID).FirstOrDefault();
             reservation.ticketPrice = dataContext.TicketPrices.Where(ticketPrice => ticketPrice.ticketPriceID == reservation.ticketPrice.ticketPriceID).FirstOrDefault();
             reservation.hall = dataContext.Halls.Where(hall => hall.hallID == reservation.hall.hallID).FirstOrDefault();
+
             dataContext.Reservations.Add(reservation);
             await dataContext.SaveChangesAsync();
 

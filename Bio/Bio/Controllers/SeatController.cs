@@ -62,11 +62,19 @@ namespace Bio.Controllers
         }
 
         // PUT api/<SeatController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<Genre>> Put(int id, bool isTaken)
+        //{
+        //    List<Genre> genreList = dataContext.Genres.ToList();
+        //    var test = genreList.FirstOrDefault(Genre => Genre.genreID == id);
 
+        //    test.genreName = genreName;
+
+        //    dataContext.Update(test);
+        //    await dataContext.SaveChangesAsync();
+
+        //    return test;
+        //}
         // DELETE api/<SeatController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Seat>> DeleteSeatByID(int id)

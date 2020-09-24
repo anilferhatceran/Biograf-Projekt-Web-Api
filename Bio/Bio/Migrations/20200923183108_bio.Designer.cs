@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bio.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200923172312_bio")]
+    [Migration("20200923183108_bio")]
     partial class bio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
